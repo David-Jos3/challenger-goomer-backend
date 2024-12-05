@@ -8,32 +8,29 @@ datasource db {
 }
 
 model Restaurant {
-  id           String        @id @default(uuid())
-  name         String        @db.VarChar(255)
-  address      String
-  photoUrl     String        @map("photo_url")
-  openingHours String        @map("opening_hours")
-  Product      Product[]
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime?     @map("updated_at")
-  OpeningHour  OpeningHour[]
+  id          String        @id @default(uuid())
+  name        String        @db.VarChar(255)
+  address     String
+  photoUrl    String        @map("photo_url")
+  Product     Product[]
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime?     @map("updated_at")
+  OpeningHour OpeningHour[]
 
   @@map("restaurants")
 }
 
 model Product {
-  id                   String          @id @default(uuid())
-  name                 String          @db.VarChar(255)
-  photoUrl             String          @map("photo_url")
-  price                Decimal         @db.Decimal(10, 2)
-  category             String          @db.VarChar(50)
-  promotionDescription String?         @map("promotion_description")
-  promotionPrice       Decimal?        @map("promotion_price") @db.Decimal(10, 2)
-  promotionSchedules   PromotionTime[]
-  restaurant           Restaurant      @relation(fields: [restaurantId], references: [id])
-  restaurantId         String          @map("restaurant_id")
-  createdAt            DateTime        @default(now()) @map("created_at")
-  updatedAt            DateTime?       @map("updated_at")
+  id                 String          @id @default(uuid())
+  name               String          @db.VarChar(255)
+  photoUrl           String          @map("photo_url")
+  price              Decimal         @db.Decimal(10, 2)
+  category           String          @db.VarChar(50)
+  promotionSchedules PromotionTime[]
+  restaurant         Restaurant      @relation(fields: [restaurantId], references: [id])
+  restaurantId       String          @map("restaurant_id")
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime?       @map("updated_at")
 
   @@map("products")
 }
@@ -50,12 +47,14 @@ model OpeningHour {
 }
 
 model PromotionTime {
-  id        Int     @id @default(autoincrement())
-  dayOfWeek String
-  startTime String
-  endTime   String
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
+  id          Int     @id @default(autoincrement())
+  dayOfWeek   String
+  startTime   String
+  endTime     String
+  price       Decimal @db.Decimal(10, 2)
+  description String  @db.VarChar(255)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
 
   @@map("promotion_times")
 }
