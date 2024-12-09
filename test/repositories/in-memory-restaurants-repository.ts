@@ -1,6 +1,6 @@
 /* eslint-disable @stylistic/max-len */
 import { Restaurant } from '../../src/domain/entities/restaurant'
-import { RestaurantRepository } from '../../src/database/repositories/restaurant-repository.'
+import { RestaurantRepository } from '../../src/domain/repositories/restaurant-repository.'
 
 export class InMemoryRestaurantsRepository implements RestaurantRepository {
   private restaurants: Restaurant[] = []
