@@ -5,20 +5,22 @@ interface ProductProps {
   photoUrl: string
   price: number
   category: string
-  promotionDescription: string
-  promotionPrice: number
   restaurantId: string
   createdAt: Date
-  updatedAt: Date | null
+  updatedAt?: Date | null
 }
 
 export class Product {
-  public _id: string
-  public _props: ProductProps
+  private readonly _id: string
+  private _props: ProductProps
 
   constructor(props: ProductProps, id?: string) {
     this._id = id ?? randomUUID()
     this._props = { ...props }
+  }
+
+  get id(): string {
+    return this._id
   }
 
   get name(): string {
@@ -53,22 +55,6 @@ export class Product {
     this._props.category = category
   }
 
-  get promotionDescription(): string {
-    return this._props.promotionDescription
-  }
-
-  set promotionDescription(promotionDescription: string) {
-    this._props.promotionDescription = promotionDescription
-  }
-
-  get promotionPrice(): string {
-    return this._props.promotionPrice.toFixed(2)
-  }
-
-  set promotionPrice(promotionPrice: number) {
-    this._props.promotionPrice = promotionPrice
-  }
-
   get restaurantId(): string {
     return this._props.restaurantId
   }
@@ -79,9 +65,5 @@ export class Product {
 
   set createdAt(createdAt: Date) {
     this._props.createdAt = createdAt
-  }
-
-  get updatedAt(): Date | null {
-    return this._props.updatedAt
   }
 }
