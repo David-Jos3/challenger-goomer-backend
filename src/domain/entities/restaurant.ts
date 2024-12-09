@@ -9,8 +9,8 @@ interface RestaurantProps {
 }
 
 export class Restaurant {
-  public _id: string
-  public _props: RestaurantProps
+  private readonly _id: string
+  private _props: RestaurantProps
 
   constructor(props: RestaurantProps, id?: string) {
     this._id = id ?? randomUUID()
