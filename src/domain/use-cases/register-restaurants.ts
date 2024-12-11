@@ -1,6 +1,7 @@
 /* eslint-disable @stylistic/max-len */
 import { Restaurant } from '../entities/restaurant'
 import { RestaurantRepository } from '../repositories/restaurant-repository.'
+import { RestaurantConflictException } from './errors/restaurant-conflict-exception'
 
 interface RegisterRestaurantRequest {
   name: string
@@ -30,7 +31,7 @@ export class RegisterRestaurantUseCase {
     })
 
     if (existingRestaurantByName && existingRestaurantByAdress) {
-      throw new Error('Restaurant with the same address and name already exists')
+      throw new RestaurantConflictException()
     }
 
     await this.restaurantRespository.create(restaurant)
