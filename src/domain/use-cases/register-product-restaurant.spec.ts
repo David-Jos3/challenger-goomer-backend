@@ -21,9 +21,9 @@ describe('Register Product the Restaurant', async () => {
       category: 'test-category',
       createdAt: new Date(),
     })
-    const storedProduct = await inMemoryProductRepository.findById(product.id)
+    const result = await inMemoryProductRepository.findById(product.id)
 
-    expect(storedProduct).not.toBeNull()
-    expect(storedProduct!.name).toBe('Test Product')
+    expect(result).not.toBeNull()
+    expect(result!.name).toBe('Test Product')
   })
 })
