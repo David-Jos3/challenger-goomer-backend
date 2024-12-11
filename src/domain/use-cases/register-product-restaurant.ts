@@ -1,5 +1,6 @@
 import { Product } from '../entities/product'
 import { ProductRepository } from '../repositories/product-repository'
+import { InvalidPriceException } from './errors/invalid-price-exception'
 
 interface RegisterProductRestaurantUseCaseRequest {
   name: string
@@ -25,6 +26,8 @@ export class RegisterProductRestaurantUseCase {
     createdAt,
   }:RegisterProductRestaurantUseCaseRequest)
     : Promise<RegisterProductRestaurantUseCaseResponse> {
+    if (price <= 0) throw new InvalidPriceException()
+
     const product = new Product({
       name,
       photoUrl,
