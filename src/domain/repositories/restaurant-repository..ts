@@ -5,4 +5,7 @@ export interface RestaurantRepository {
   findByName(name: string): Promise<Restaurant | null>
   findByAddress(address: string): Promise<Restaurant | null>
   findById(restaurantId: string): Promise<Restaurant | null>
+  findAll(): Promise<Restaurant[]>
+  delete(restaurantId: string): Promise<void>
+  update(restaurant: Restaurant): Promise<Restaurant>
 }
