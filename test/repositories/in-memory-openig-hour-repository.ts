@@ -5,9 +5,8 @@ import { OpeningHourRepository } from '../../src/domain/repositories/opening-hou
 export class InMemoryOpeningHourRepository implements OpeningHourRepository {
   openingHours: OpeningHour[] = []
 
-  async create(openingHour: OpeningHour): Promise<OpeningHour> {
+  async create(openingHour: OpeningHour): Promise<void> {
     this.openingHours.push(openingHour)
-    return openingHour
   }
 
   async findById(openinghourId: string): Promise<OpeningHour | null> {
