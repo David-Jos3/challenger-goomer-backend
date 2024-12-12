@@ -5,9 +5,8 @@ import { RestaurantRepository } from '../../src/domain/repositories/restaurant-r
 export class InMemoryRestaurantsRepository implements RestaurantRepository {
   private restaurants: Restaurant[] = []
 
-  async create(restaurant: Restaurant): Promise<Restaurant> {
+  async create(restaurant: Restaurant): Promise<void> {
     this.restaurants.push(restaurant)
-    return restaurant
   }
 
   async findById(restaurantId: string): Promise<Restaurant | null> {
@@ -30,11 +29,10 @@ export class InMemoryRestaurantsRepository implements RestaurantRepository {
     this.restaurants.filter((r) => r.id !== restaurantId)
   }
 
-  async update(restaurant: Restaurant): Promise<Restaurant> {
+  async update(restaurant: Restaurant): Promise<void> {
     const index = this.restaurants.findIndex(i => i.id === restaurant.id)
     if (index !== -1) {
       this.restaurants[index] = restaurant
     }
-    return restaurant
   }
 }
