@@ -5,9 +5,8 @@ import { PromotionTimeRepository } from '../../src/domain/repositories/promotion
 export class InMemoryPromotionTimeRepository implements PromotionTimeRepository {
   promotionTimes: PromotionTime[] = []
 
-  async create(promotionTime: PromotionTime): Promise<PromotionTime> {
+  async create(promotionTime: PromotionTime): Promise<void> {
     this.promotionTimes.push(promotionTime)
-    return promotionTime
   }
 
   async findById(promotiontimeId: string): Promise<PromotionTime | null> {
