@@ -17,11 +17,11 @@ export class Restaurant {
     this._props = { ...props }
   }
 
-  get id(): string {
+  get id() {
     return this._id
   }
 
-  get name(): string {
+  get name() {
     return this._props.name
   }
 
@@ -29,7 +29,7 @@ export class Restaurant {
     this._props.name = name
   }
 
-  get address(): string {
+  get address() {
     return this._props.address
   }
 
@@ -37,7 +37,7 @@ export class Restaurant {
     this._props.address = address
   }
 
-  get photoUrl(): string {
+  get photoUrl() {
     return this._props.photoUrl
   }
 
@@ -45,11 +45,15 @@ export class Restaurant {
     this._props.photoUrl = photoUrl
   }
 
-  get createdAt(): Date {
+  get createdAt() {
     return this._props.createdAt
   }
 
   set createdAt(createdAt: Date) {
     this._props.createdAt = createdAt
+  }
+
+  get updatedAt() {
+    return this._props.updatedAt
   }
 }
