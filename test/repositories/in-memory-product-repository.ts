@@ -5,12 +5,26 @@ import { ProductRepository } from '../../src/domain/repositories/product-reposit
 export class InMemoryProductRepository implements ProductRepository {
   private products: Product[] = []
 
-  async create(product: Product): Promise<Product> {
+  async create(product: Product): Promise<void> {
     this.products.push(product)
-    return product
   }
 
   async findById(productId: string): Promise<Product | null> {
     return this.products.find((r) => r.id === productId) ?? null
+  }
+
+  async findAll(): Promise<Product[]> {
+    return this.products
+  }
+
+  async delete(productId: string): Promise<void> {
+    this.products.filter((r) => r.id !== productId)
+  }
+
+  async update(product: Product): Promise<void> {
+    const index = this.products.findIndex(i => i.id === product.id)
+    if (index !== -1) {
+      this.products[index] = product
+    }
   }
 }
