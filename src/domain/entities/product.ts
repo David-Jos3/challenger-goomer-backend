@@ -19,11 +19,11 @@ export class Product {
     this._props = { ...props }
   }
 
-  get id(): string {
+  get id() {
     return this._id
   }
 
-  get name(): string {
+  get name() {
     return this._props.name
   }
 
@@ -31,7 +31,7 @@ export class Product {
     this._props.name = name
   }
 
-  get photoUrl(): string {
+  get photoUrl() {
     return this._props.photoUrl
   }
 
@@ -39,15 +39,15 @@ export class Product {
     this._props.photoUrl = photoUrl
   }
 
-  get price(): string {
-    return this._props.price.toFixed(2)
+  get price() {
+    return this._props.price
   }
 
   set price(price: number) {
     this._props.price = price
   }
 
-  get category(): string {
+  get category() {
     return this._props.category
   }
 
@@ -55,15 +55,19 @@ export class Product {
     this._props.category = category
   }
 
-  get restaurantId(): string {
+  get restaurantId() {
     return this._props.restaurantId
   }
 
-  get createdAt(): Date {
+  get createdAt() {
     return this._props.createdAt
   }
 
   set createdAt(createdAt: Date) {
     this._props.createdAt = createdAt
+  }
+
+  get updatedAt() {
+    return this._props.updatedAt
   }
 }
