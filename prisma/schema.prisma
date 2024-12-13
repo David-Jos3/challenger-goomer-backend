@@ -36,7 +36,7 @@ model Product {
 }
 
 model OpeningHour {
-  id           Int        @id @default(autoincrement())
+  id           String     @id @default(uuid())
   dayOfWeek    String
   startTime    String
   endTime      String
@@ -47,7 +47,7 @@ model OpeningHour {
 }
 
 model PromotionTime {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(uuid())
   dayOfWeek   String
   startTime   String
   endTime     String
