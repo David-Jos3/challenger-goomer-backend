@@ -1,20 +1,19 @@
 /* eslint-disable @stylistic/max-len */
 import { Restaurant } from '../../../domain/entities/restaurant'
 import { RestaurantRepository } from '../../../domain/repositories/restaurant-repository.'
-import { PrismaClient } from '@prisma/client'
 import { PrismaRestaurantMapper } from '../mappers/restaurant-mapper'
+import { prisma } from '../../../lib/prisma-service'
 
 export class PrismaRestaurantRepository implements RestaurantRepository {
-  constructor(private prisma: PrismaClient) {}
   async create(restaurant: Restaurant): Promise<void> {
     const data = PrismaRestaurantMapper.toPrisma(restaurant)
-    await this.prisma.restaurant.create({
+    await prisma.restaurant.create({
       data,
     })
   }
 
   async findByName(name: string): Promise<Restaurant | null> {
-    const restaurant = await this.prisma.restaurant.findFirst({
+    const restaurant = await prisma.restaurant.findFirst({
       where: { name },
     })
 
@@ -25,7 +24,7 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   }
 
   async findByAddress(address: string): Promise<Restaurant | null> {
-    const restaurant = await this.prisma.restaurant.findFirst({
+    const restaurant = await prisma.restaurant.findFirst({
       where: { address },
     })
 
@@ -36,7 +35,7 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   }
 
   async findById(restaurantId: string): Promise<Restaurant | null> {
-    const restaurant = await this.prisma.restaurant.findUnique({
+    const restaurant = await prisma.restaurant.findUnique({
       where: { id: restaurantId },
     })
 
@@ -47,18 +46,18 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   }
 
   async findAll(): Promise<Restaurant[]> {
-    const restaurant = await this.prisma.restaurant.findMany({
+    const restaurant = await prisma.restaurant.findMany({
       include: { Product: true },
     })
     return restaurant.map(PrismaRestaurantMapper.toDomain)
   }
 
   async delete(restaurantId: string): Promise<void> {
-    await this.prisma.restaurant.findFirst({ where: { id: restaurantId } })
+    await prisma.restaurant.findFirst({ where: { id: restaurantId } })
   }
 
   async update(restaurant: Restaurant): Promise<void> {
-    await this.prisma.restaurant.update({
+    await prisma.restaurant.update({
       where: { id: restaurant.id },
       data: PrismaRestaurantMapper.toPrisma(restaurant),
     })
