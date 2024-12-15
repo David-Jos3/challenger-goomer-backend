@@ -8,7 +8,7 @@ interface RegisterProductRestaurantUseCaseRequest {
   price: number
   restaurantId: string
   category: string
-  createdAt: Date
+  createdAt?: Date
 }
 
 interface RegisterProductRestaurantUseCaseResponse {
@@ -23,7 +23,6 @@ export class RegisterProductRestaurantUseCase {
     price,
     restaurantId,
     category,
-    createdAt,
   }:RegisterProductRestaurantUseCaseRequest)
     : Promise<RegisterProductRestaurantUseCaseResponse> {
     if (price <= 0) throw new InvalidPriceException()
@@ -33,7 +32,7 @@ export class RegisterProductRestaurantUseCase {
       photoUrl,
       price,
       category,
-      createdAt,
+      createdAt: new Date(),
       restaurantId,
     })
     await this.productRepository.create(product)
