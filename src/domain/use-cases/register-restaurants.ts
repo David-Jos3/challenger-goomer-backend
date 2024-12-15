@@ -7,7 +7,7 @@ interface RegisterRestaurantRequest {
   name: string
   address: string
   photoUrl: string
-  createdAt: Date
+  createdAt?: Date
   updatedAt?: Date
 }
 
@@ -18,7 +18,7 @@ interface RegisterRestaurantResponse {
 export class RegisterRestaurantUseCase {
   constructor(private restaurantRespository: RestaurantRepository) {}
 
-  async execute({ name, address, photoUrl, createdAt }: RegisterRestaurantRequest)
+  async execute({ name, address, photoUrl }: RegisterRestaurantRequest)
     : Promise<RegisterRestaurantResponse> {
     const existingRestaurantByName = await this.restaurantRespository.findByName(name)
     const existingRestaurantByAdress = await this.restaurantRespository.findByAddress(address)
@@ -27,7 +27,7 @@ export class RegisterRestaurantUseCase {
       name,
       address,
       photoUrl,
-      createdAt,
+      createdAt: new Date(),
     })
 
     if (existingRestaurantByName && existingRestaurantByAdress) {
