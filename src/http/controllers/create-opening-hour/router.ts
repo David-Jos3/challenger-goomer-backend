@@ -2,7 +2,7 @@ import { app } from '../../../app'
 import { CreateOpeningHourController } from './create-opening-hour.controller'
 
 export class OpeningHourRouter {
-  static async create() {
+  static async routes() {
     app.post('/opening-hour', CreateOpeningHourController.create)
   }
 }
