@@ -4,9 +4,10 @@ import { RestaurantRepository } from '../repositories/restaurant-repository.'
 
 interface UpdateRestaurantUseCaseRequest {
   restaurantId: string
-  name: string
-  address: string
-  photoUrl: string
+  name?: string
+  address?: string
+  photoUrl?: string
+
 }
 
 interface UpdateRestaurantUseCaseResponse {
@@ -28,15 +29,9 @@ export class UpdateRestaurantUseCase {
       throw new ResourceNotFoundException()
     }
 
-    // const updatedRestaurant = Object.assign(restaurant, {
-    //   ...(name && { name }),
-    //   ...(address && { address }),
-    //   ...(photoUrl && { photoUrl }),
-    // })
-
-    restaurant.name = name
-    restaurant.address = address
-    restaurant.photoUrl = photoUrl
+    restaurant.name = name ?? restaurant.name
+    restaurant.address = address ?? restaurant.address
+    restaurant.photoUrl = photoUrl ?? restaurant.photoUrl
 
     await this.restaurantRepository.update(restaurant)
 
