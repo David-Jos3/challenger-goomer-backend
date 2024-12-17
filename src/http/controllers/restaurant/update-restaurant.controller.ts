@@ -24,10 +24,15 @@ export class UpdateRestaurantController {
         name,
         photoUrl,
         restaurantId,
+        updatedAt: new Date(),
       })
       return reply.status(204).send()
     } catch (err) {
       if (err instanceof ZodError) {
+        return reply.status(400).send({ message: err.message })
+      }
+
+      if (err instanceof Error) {
         return reply.status(400).send({ message: err.message })
       }
       return reply.status(500).send({ message: 'Internal Server Error' })
