@@ -1,8 +1,14 @@
 import { Decimal } from '@prisma/client/runtime/library'
 import { Product } from '../../../domain/entities/product'
-import { Product as PrismaProduct, Prisma } from '@prisma/client'
+// eslint-disable-next-line @stylistic/max-len
+import { Product as PrismaProduct, Prisma, PromotionTime as PrismaPromotionTime } from '@prisma/client'
+
+type PrismaProductWithRelations = PrismaProduct & {
+  promotionSchedules: PrismaPromotionTime[];
+}
+
 export class PrismaProductMapper {
-  static toDomain(raw: PrismaProduct): Product {
+  static toDomain(raw: PrismaProductWithRelations): Product {
     return new Product({
       name: raw.name,
       photoUrl: raw.photoUrl,
@@ -11,6 +17,15 @@ export class PrismaProductMapper {
       restaurantId: raw.restaurantId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
+      promotionTime: raw.promotionSchedules.map(promotionTimes => ({
+        dayOfWeek: promotionTimes.dayOfWeek,
+        description: promotionTimes.description,
+        startTime: promotionTimes.startTime,
+        endTime: promotionTimes.endTime,
+        price: promotionTimes.price.toNumber(),
+        productId: promotionTimes.productId,
+
+      })),
     }, raw.id.toString())
   }
 
