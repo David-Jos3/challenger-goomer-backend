@@ -27,7 +27,7 @@ model Product {
   price              Decimal         @db.Decimal(10, 2)
   category           String          @db.VarChar(50)
   promotionSchedules PromotionTime[]
-  restaurant         Restaurant      @relation(fields: [restaurantId], references: [id])
+  restaurant         Restaurant      @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId       String          @map("restaurant_id")
   createdAt          DateTime        @default(now()) @map("created_at")
   updatedAt          DateTime?       @map("updated_at")
@@ -41,7 +41,7 @@ model OpeningHour {
   startTime    String
   endTime      String
   restaurantId String     @map("restaurant_id")
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
   @@map("opening_hours")
 }
