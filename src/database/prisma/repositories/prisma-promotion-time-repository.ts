@@ -8,7 +8,7 @@ import { prisma } from '../../../lib/prisma-service'
 export class PrismaPromotionTimeRepository implements PromotionTimeRepository {
   async create(promotionTime: PromotionTime): Promise<void> {
     const data = PrismaPromotionTimeMapper.toPrisma(promotionTime)
-    prisma.promotionTime.create({
+    await prisma.promotionTime.create({
       data,
     })
   }
