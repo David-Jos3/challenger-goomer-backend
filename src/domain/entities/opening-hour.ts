@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-interface OpeningHourProps {
+export interface OpeningHourProps {
   dayOfWeek: string;
   startTime: string;
   endTime: string;
