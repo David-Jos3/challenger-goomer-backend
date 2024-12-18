@@ -7,10 +7,10 @@ export class PrismaPromotionTimeMapper {
     return new PromotionTime({
       dayOfWeek: raw.dayOfWeek,
       description: raw.description,
+      startTime: raw.startTime,
       endTime: raw.endTime,
       price: raw.price.toNumber(),
       productId: raw.productId,
-      startTime: raw.startTime,
     }, raw.id.toString())
   }
 
@@ -19,10 +19,10 @@ export class PrismaPromotionTimeMapper {
       id: row.id,
       dayOfWeek: row.dayOfWeek,
       description: row.description,
+      startTime: row.startTime,
       endTime: row.endTime,
       price: new Decimal(row.price),
       productId: row.productId,
-      startTime: row.startTime,
     }
   }
 }
