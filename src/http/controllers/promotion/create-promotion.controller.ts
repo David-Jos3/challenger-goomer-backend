@@ -28,6 +28,7 @@ export class CreatePromotionTimeController {
         price,
         startTime,
       })
+      reply.status(201).send({ message: 'Promotion Time created successfully' })
     } catch (err) {
       if (err instanceof z.ZodError) {
         console.log(z.ZodError.toString)
