@@ -10,8 +10,8 @@ export class ListRestaurantController {
       const restaurantRepository = new PrismaRestaurantRepository()
       const getRestaurantsUseCase = new GetRestaurantsUseCase(restaurantRepository)
 
-      const restaurants = await getRestaurantsUseCase.execute()
-      reply.status(200).send(restaurants)
+      const { restaurants } = await getRestaurantsUseCase.execute()
+      return reply.status(200).send(restaurants)
     } catch (err) {
       if (err instanceof ZodError) {
         return reply.status(400).send({ message: err.message })
