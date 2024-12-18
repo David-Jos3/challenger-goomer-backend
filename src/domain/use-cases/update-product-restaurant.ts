@@ -3,11 +3,11 @@ import { Product } from '../entities/product'
 import { ProductRepository } from '../repositories/product-repository'
 
 interface UpdateProductRestaurantUseCaseRequest {
-  name: string
-  photoUrl: string
-  price: number
+  name?: string
+  photoUrl?: string
+  price?: number
   productId: string
-  category: string
+  category?: string
 }
 interface UpdateProductRestaurantUseCaseResponse {
   product: Product
@@ -30,10 +30,10 @@ export class UpdateProductRestaurantUseCase {
       throw new ResourceNotFoundException()
     }
 
-    product.name = name
-    product.price = price
-    product.photoUrl = photoUrl
-    product.category = category
+    product.name = name ?? product.name
+    product.price = price ?? product.price
+    product.photoUrl = photoUrl ?? product.photoUrl
+    product.category = category ?? product.category
 
     await this.productRepository.update(product)
 
