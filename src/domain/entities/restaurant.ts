@@ -1,4 +1,6 @@
 import { randomUUID } from 'node:crypto'
+import { ProductProps } from './product'
+import { OpeningHourProps } from './opening-hour'
 
 interface RestaurantProps {
   name: string
@@ -6,6 +8,8 @@ interface RestaurantProps {
   photoUrl: string
   createdAt: Date
   updatedAt?: Date | null
+  product: ProductProps[]
+  openingHours: OpeningHourProps[]
 }
 
 export class Restaurant {
@@ -55,5 +59,17 @@ export class Restaurant {
 
   get updatedAt() {
     return this._props.updatedAt
+  }
+
+  set updatedAt(updatedAt: Date | null | undefined) {
+    this._props.updatedAt = updatedAt ?? new Date()
+  }
+
+  get products() {
+    return this._props.product
+  }
+
+  get openingHours() {
+    return this._props.openingHours
   }
 }
