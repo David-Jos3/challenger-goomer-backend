@@ -15,6 +15,7 @@ export class PrismaProductRepository implements ProductRepository {
   async findById(productId: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { id: productId },
+      include: { restaurant: true, promotionSchedules: true },
     })
 
     if (!product) {
@@ -25,17 +26,17 @@ export class PrismaProductRepository implements ProductRepository {
 
   async findAll(): Promise<Product[]> {
     const product = await prisma.product.findMany({
-      include: { restaurant: true },
+      include: { restaurant: true, promotionSchedules: true },
     })
     return product.map(PrismaProductMapper.toDomain)
   }
 
   async delete(productId: string): Promise<void> {
-    prisma.product.delete({ where: { id: productId } })
+    await prisma.product.delete({ where: { id: productId } })
   }
 
   async update(product: Product): Promise<void> {
-    prisma.product.update({
+    await prisma.product.update({
       where: { id: product.id },
       data: PrismaProductMapper.toPrisma(product),
     })
