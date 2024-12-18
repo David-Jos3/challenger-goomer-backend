@@ -7,6 +7,7 @@ interface UpdateRestaurantUseCaseRequest {
   name?: string
   address?: string
   photoUrl?: string
+  updatedAt: Date
 
 }
 
@@ -32,6 +33,7 @@ export class UpdateRestaurantUseCase {
     restaurant.name = name ?? restaurant.name
     restaurant.address = address ?? restaurant.address
     restaurant.photoUrl = photoUrl ?? restaurant.photoUrl
+    restaurant.updatedAt = new Date()
 
     await this.restaurantRepository.update(restaurant)
 
