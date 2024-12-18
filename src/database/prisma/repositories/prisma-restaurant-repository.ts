@@ -15,6 +15,7 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   async findByName(name: string): Promise<Restaurant | null> {
     const restaurant = await prisma.restaurant.findFirst({
       where: { name },
+      include: { OpeningHour: true, Product: true },
     })
 
     if (!restaurant) {
@@ -26,6 +27,7 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   async findByAddress(address: string): Promise<Restaurant | null> {
     const restaurant = await prisma.restaurant.findFirst({
       where: { address },
+      include: { OpeningHour: true, Product: true },
     })
 
     if (!restaurant) {
@@ -37,6 +39,10 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
   async findById(restaurantId: string): Promise<Restaurant | null> {
     const restaurant = await prisma.restaurant.findUnique({
       where: { id: restaurantId },
+      include: {
+        Product: true,
+        OpeningHour: true,
+      },
     })
 
     if (!restaurant) {
@@ -47,13 +53,25 @@ export class PrismaRestaurantRepository implements RestaurantRepository {
 
   async findAll(): Promise<Restaurant[]> {
     const restaurant = await prisma.restaurant.findMany({
-      include: { Product: true },
+      include: {
+        OpeningHour: true,
+        Product: true,
+      },
     })
     return restaurant.map(PrismaRestaurantMapper.toDomain)
   }
 
   async delete(restaurantId: string): Promise<void> {
-    await prisma.restaurant.findFirst({ where: { id: restaurantId } })
+    await prisma.product.deleteMany({
+      where: { restaurantId },
+    })
+
+    await prisma.openingHour.deleteMany({
+      where: { restaurantId },
+    })
+    await prisma.restaurant.delete({
+      where: { id: restaurantId },
+    })
   }
 
   async update(restaurant: Restaurant): Promise<void> {
