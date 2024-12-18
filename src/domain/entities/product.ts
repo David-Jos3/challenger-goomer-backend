@@ -1,12 +1,14 @@
 import { randomUUID } from 'node:crypto'
+import { PromotionTimeProps } from './promotion-time'
 
-interface ProductProps {
+export interface ProductProps {
   name: string
   photoUrl: string
   price: number
   category: string
   restaurantId: string
   createdAt: Date
+  promotionTime: PromotionTimeProps[]
   updatedAt?: Date | null
 }
 
@@ -69,5 +71,9 @@ export class Product {
 
   get updatedAt() {
     return this._props.updatedAt
+  }
+
+  get promotionTime() {
+    return this._props.promotionTime
   }
 }
