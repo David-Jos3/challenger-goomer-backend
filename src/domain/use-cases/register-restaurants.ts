@@ -28,12 +28,14 @@ export class RegisterRestaurantUseCase {
       address,
       photoUrl,
       createdAt: new Date(),
+      updatedAt: null,
+      product: [],
+      openingHours: [],
     })
 
     if (existingRestaurantByName && existingRestaurantByAdress) {
       throw new RestaurantConflictException()
     }
-
     await this.restaurantRespository.create(restaurant)
 
     return { restaurant }
